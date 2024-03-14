@@ -61,5 +61,23 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
     }
 });
 
+Route::group(['prefix' => 'postition', 'as' => 'postition.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
+    // Change password
+    if (file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php'))) {
+        Route::get('password', 'ChangePasswordController@edit')->name('password.edit');
+        Route::post('password', 'ChangePasswordController@update')->name('password.update');
+        Route::post('profile', 'ChangePasswordController@updateProfile')->name('password.updateProfile');
+        Route::post('profile/destroy', 'ChangePasswordController@destroy')->name('password.destroyProfile');
+    }
+});
+
+
+Route::group(['prefix' => 'position', 'as' => 'position.', 'namespace' => 'Position', 'middleware' => ['auth']], function () {
+    // Permissions
+    Route::delete('position/destroy', 'PositionController@massDestroy')->name('position.massDestroy');
+    Route::resource('position', 'PositionController');
+
+});
+
 	
 Route::get('/updated-activity', 'TelegramBotController@updatedActivity');
