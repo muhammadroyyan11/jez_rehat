@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Attendance extends Model
+class Employee extends Model
 {
-    use SoftDeletes, HasFactory;
+    use SoftDeletes,  HasFactory;
 
-    public $table = 'attendances';
+    public $table = 'employee';
 
     protected $dates = [
         'created_at',
@@ -21,9 +21,9 @@ class Attendance extends Model
 
     protected $fillable = [
         'user_id',
-        'start_rest',
-        'end_rest',
-        'status',
+        'nama',
+        'divisi',
+        'jenis_pekerjaan'
     ];
 
     protected function serializeDate(DateTimeInterface $date)

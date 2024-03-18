@@ -2,16 +2,16 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Attendance;
+use App\Models\Employee;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;
 
-class MassDestroyAttendanceRequest extends FormRequest
+class MassDestroyEmployeeRequest extends FormRequest
 {
     public function authorize()
     {
-        abort_if(Gate::denies('attendance_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('employee_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return true;
     }
@@ -20,7 +20,7 @@ class MassDestroyAttendanceRequest extends FormRequest
     {
         return [
             'ids'   => 'required|array',
-            'ids.*' => 'exists:attendances,id',
+            'ids.*' => 'exists:employees,id',
         ];
     }
 }

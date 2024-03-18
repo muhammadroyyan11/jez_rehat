@@ -43,6 +43,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('attendances/destroy', 'AttendanceController@massDestroy')->name('attendances.massDestroy');
     Route::resource('attendances', 'AttendanceController');
 
+    // Employee
+    Route::delete('employee/destroy', 'EmployeeController@massDestroy')->name('employee.massDestroy');
+    Route::resource('employee', 'EmployeeController');
+
     // Audit Logs
     Route::resource('audit-logs', 'AuditLogsController', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);
 
@@ -71,13 +75,27 @@ Route::group(['prefix' => 'postition', 'as' => 'postition.', 'namespace' => 'Aut
     }
 });
 
-
 Route::group(['prefix' => 'position', 'as' => 'position.', 'namespace' => 'Position', 'middleware' => ['auth']], function () {
     // Permissions
     Route::delete('position/destroy', 'PositionController@massDestroy')->name('position.massDestroy');
     Route::resource('position', 'PositionController');
-
 });
 
-	
+Route::group(['prefix' => 'employee', 'as' => 'employee.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
+    // Change password
+    if (file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php'))) {
+        Route::get('password', 'ChangePasswordController@edit')->name('password.edit');
+        Route::post('password', 'ChangePasswordController@update')->name('password.update');
+        Route::post('profile', 'ChangePasswordController@updateProfile')->name('password.updateProfile');
+        Route::post('profile/destroy', 'ChangePasswordController@destroy')->name('password.destroyProfile');
+    }
+});
+
+Route::group(['prefix' => 'employee', 'as' => 'employee.', 'namespace' => 'employee', 'middleware' => ['auth']], function () {
+    // Permissions
+    Route::delete('employee/destroy', 'EmployeeController@massDestroy')->name('employee.massDestroy');
+    Route::resource('employee', 'EmployeeController');
+});
+
+
 Route::get('/updated-activity', 'TelegramBotController@updatedActivity');

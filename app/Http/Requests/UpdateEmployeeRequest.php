@@ -2,16 +2,16 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Attendance;
+use App\Models\Employee;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
 
-class UpdateAttendanceRequest extends FormRequest
+class UpdateEmployeeRequest extends FormRequest
 {
     public function authorize()
     {
-        return Gate::allows('attendance_edit');
+        return Gate::allows('employee_edit');
     }
 
     public function rules()

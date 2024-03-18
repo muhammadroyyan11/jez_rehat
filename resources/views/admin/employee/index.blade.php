@@ -1,44 +1,44 @@
 @extends('layouts.admin')
 @section('content')
-    @can('attendance_create')
+    @can('employee_create')
         <div style="margin-bottom: 10px;" class="row">
             <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route('admin.attendances.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.attendance.title_singular') }}
+                <a class="btn btn-success" href="{{ route('admin.employee.create') }}">
+                    {{ trans('global.add') }} {{ trans('cruds.employee.title_singular') }}
                 </a>
             </div>
         </div>
     @endcan
     <div class="card">
         <div class="card-header">
-            {{ trans('cruds.attendance.title_singular') }} {{ trans('global.list') }}
+            {{ trans('cruds.employee.title_singular') }} {{ trans('global.list') }}
         </div>
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class=" table table-bordered table-striped table-hover datatable datatable-Attendance">
+                <table class=" table table-bordered table-striped table-hover datatable datatable-Employee">
                     <thead>
                         <tr>
                             <th width="10">
 
                             </th>
                             <th>
-                                {{ trans('cruds.attendance.fields.id') }}
+                                {{ trans('cruds.employee.fields.id') }}
                             </th>
                             <th>
-                                {{ trans('cruds.attendance.fields.user') }}
+                                {{ trans('cruds.employee.fields.user') }}
                             </th>
                             <th>
-                                {{ trans('cruds.attendance.fields.start_rest') }}
+                                {{ trans('cruds.employee.fields.start_rest') }}
                             </th>
                             <th>
-                                {{ trans('cruds.attendance.fields.end_rest') }}
+                                {{ trans('cruds.employee.fields.end_rest') }}
                             </th>
                             <th>
-                                {{ trans('cruds.attendance.fields.status') }}
+                                {{ trans('cruds.employee.fields.status') }}
                             </th>
                             <th>
-                                {{ trans('cruds.attendance.fields.created_at') }}
+                                {{ trans('cruds.employee.fields.created_at') }}
                             </th>
                             <th>
                                 &nbsp;
@@ -46,46 +46,41 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($attendances as $key => $attendance)
-                            <tr data-entry-id="{{ $attendance->id }}">
+                        @foreach ($employees as $key => $employee[''])
+                            <tr data-entry-id="{{ $employee->id }}">
                                 <td>
 
                                 </td>
                                 <td>
-                                    {{ $attendance->id ?? '' }}
+                                    {{ $employee->id ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $attendance->user->name ?? '' }}
+                                    {{ $employee->user->nama ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $attendance->start_rest ?? '' }}
+                                    {{ $employee->divisi ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $attendance->end_rest ?? '' }}
+                                    {{ $employee->jenis_pekerjaan ?? '' }}
                                 </td>
+
                                 <td>
-                                    {{ $attendance->status ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $attendance->created_at ?? '' }}
-                                </td>
-                                <td>
-                                    @can('attendance_show')
+                                    @can('employee_show')
                                         <a class="btn btn-xs btn-primary"
-                                            href="{{ route('admin.attendances.show', $attendance->id) }}">
+                                            href="{{ route('admin.employee.show', $employee->id) }}">
                                             {{ trans('global.view') }}
                                         </a>
                                     @endcan
 
-                                    @can('attendance_edit')
+                                    @can('employee_edit')
                                         <a class="btn btn-xs btn-info"
-                                            href="{{ route('admin.attendances.edit', $attendance->id) }}">
+                                            href="{{ route('admin.employee.edit', $employee->id) }}">
                                             {{ trans('global.edit') }}
                                         </a>
                                     @endcan
 
-                                    @can('attendance_delete')
-                                        <form action="{{ route('admin.attendances.destroy', $attendance->id) }}" method="POST"
+                                    @can('employee_delete')
+                                        <form action="{{ route('admin.employees.destroy', $employee->id) }}" method="POST"
                                             onsubmit="return confirm('{{ trans('global.areYouSure') }}');"
                                             style="display: inline-block;">
                                             <input type="hidden" name="_method" value="DELETE">
@@ -94,9 +89,7 @@
                                                 value="{{ trans('global.delete') }}">
                                         </form>
                                     @endcan
-
                                 </td>
-
                             </tr>
                         @endforeach
                     </tbody>
@@ -110,11 +103,11 @@
     <script>
         $(function() {
             let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-            @can('attendance_delete')
+            @can('employee_delete')
                 let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
                 let deleteButton = {
                     text: deleteButtonTrans,
-                    url: "{{ route('admin.attendances.massDestroy') }}",
+                    url: "{{ route('admin.employee.massDestroy') }}",
                     className: 'btn-danger',
                     action: function(e, dt, node, config) {
                         var ids = $.map(dt.rows({
@@ -157,7 +150,7 @@
                 ],
                 pageLength: 100,
             });
-            let table = $('.datatable-Attendance:not(.ajaxTable)').DataTable({
+            let table = $('.datatable-Employee:not(.ajaxTable)').DataTable({
                 buttons: dtButtons
             })
             $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e) {
