@@ -29,6 +29,12 @@
                                 {{ trans('cruds.employee.fields.user') }}
                             </th>
                             <th>
+                                {{ trans('cruds.employee.fields.division') }}
+                            </th>
+                            <th>
+                                {{ trans('cruds.employee.fields.type_work') }}
+                            </th>
+                            <th>
                                 {{ trans('cruds.employee.fields.start_rest') }}
                             </th>
                             <th>
