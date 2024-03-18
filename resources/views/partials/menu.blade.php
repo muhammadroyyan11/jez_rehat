@@ -83,6 +83,16 @@
                 </a>
             </li>
         @endcan
+        @can('position_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.positions.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/positions") || request()->is("admin/postitions/*") ? "c-active" : "" }}">
+                    <i class="fa fa-bandcamp c-sidebar-nav-icon">
+
+                    </i>
+                    Position
+                </a>
+            </li>
+        @endcan
         @can('employee_access')
             <li class="c-sidebar-nav-item">
                 <a href="{{ route('admin.employee.index') }}"
