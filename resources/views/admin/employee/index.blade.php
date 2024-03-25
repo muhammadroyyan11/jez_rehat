@@ -52,7 +52,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($employees as $key => $employee[''])
+                        @foreach ($employees as $key => $employee)
                             <tr data-entry-id="{{ $employee->id }}">
                                 <td>
 
@@ -61,13 +61,19 @@
                                     {{ $employee->id ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $employee->user->nama ?? '' }}
+                                    {{ $employee->user_id ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $employee->divisi ?? '' }}
+                                    {{ $employee->start_rest ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $employee->jenis_pekerjaan ?? '' }}
+                                    {{ $employee->end_rest ?? '' }}
+                                </td>
+                                <td>
+                                    {{ $employee->status ?? '' }}
+                                </td>
+                                <td>
+                                    {{ $employee->created_at ?? '' }}
                                 </td>
 
                                 <td>
@@ -86,7 +92,7 @@
                                     @endcan
 
                                     @can('employee_delete')
-                                        <form action="{{ route('admin.employees.destroy', $employee->id) }}" method="POST"
+                                        <form action="{{ route('admin.employee.destroy', $employee->id) }}" method="POST"
                                             onsubmit="return confirm('{{ trans('global.areYouSure') }}');"
                                             style="display: inline-block;">
                                             <input type="hidden" name="_method" value="DELETE">
